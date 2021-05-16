@@ -53,13 +53,16 @@ import {
 
 import Web3 from 'web3';
 import simpleStorage from '../../abis/SimpleStorage.json';
+import bet from '../../abis/Bet.json';
 
 const web3 = new Web3(Web3.givenProvider);
 
 // contract address is provided by Truffle migration
-const contractAddr = '0x4A39f679E3aEeC9d1801d0b57E954cd21Cf8D4C2';
+const contractAddr = '0x752651bde8c23ec1EfFb88137eCbAD956E111845';
+const betContractAddr = '0x2C5E32A60EB72769819B3941022FF8dA213dAE05';
 
 const SimpleContract = new web3.eth.Contract(simpleStorage.abi, contractAddr);
+const BetContract = new web3.eth.Contract(bet.abi, betContractAddr);
 
 export default function Basics() {
   const [inputFocus, setInputFocus] = React.useState(false);
@@ -68,30 +71,33 @@ export default function Basics() {
   const slider2 = React.useRef(null);
   const [number, setNumber] = useState(0);
   const [getNumber, setGetNumber] = useState('0x00');
-  const [addr1, setaddr1] = useState(0x00);
-  const [addr2, setaddr2] = useState(0x00);
+  const [valid, setValid] = useState('false');
+  const [addr1, setaddr1] = useState('0x43013c8A7601955a47bbDc061c11E26E32b48702');
+  const [addr2, setaddr2] = useState('0xD7bBC6478ab1994096dB02D8E874AFb9f6C998B4');
   const [usr1, setusr1] = useState([644, 46, 19, 48, 501]);
   const [usr2, setusr2] = useState([7564, 76, 3035, 236, 78]);
-  const [beforeValue1, setBeforeValue1] = useState([[165, 11999, 80000, 2299, 260],
-    [0, 1, 1, 1, 0.5],
-    [5000, 46, 25, 99, 1800],
-    [2, 2, 1, 2, 2],
-    [0, 0, 1, 0, 0]]);
-  const [beforeValue2, setBeforeValue2] = useState([[44, 12000, 4, 628, 2799],
-    [0, 0.5, 0, 0.5, 1],
-    [10000, 79, 35000, 275, 99],
-    [2, 1, 2, 1, 1],
+  const [beforeValue1, setBeforeValue1] = useState([[1650000, 119990000, 800000000, 22990000, 2600000],
+    [0, 10000, 10000, 10000, 5000],
+    [50000000, 460000, 250000, 990000, 18000000],
+    [20000, 20000, 10000, 20000, 20000],
+    [0, 0, 10000, 0, 0]]);
+  const [beforeValue2, setBeforeValue2] = useState([[440000, 120000000, 40000, 6280000, 27990000],
+    [0, 5000, 0, 5000, 10000],
+    [100000000, 790000, 350000000, 2750000, 990000],
+    [20000, 10000, 20000, 10000, 10000],
     [0, 0, 0, 0, 0]]);
-  const [afterValue1, setAfterValue1] = useState([[142, 13258, 81000, 3500, 337],
-    [0, 1, 1, 1, 0.5],
-    [5000, 46, 25, 99, 1800],
-    [2, 2, 1, 2, 2],
-    [0, 0, 1, 0, 0]]);
-  const [afterValue2, setAfterValue2] = useState([[32, 1540, 4, 843, 4208],
-    [0, 0.5, 0, 0.5, 1],
-    [10000, 79, 35000, 275, 99],
-    [2, 1, 2, 1, 1],
+  const [afterValue1, setAfterValue1] = useState([[1420000, 132580000, 810000000, 35000000, 3370000],
+    [0, 10000, 10000, 10000, 5000],
+    [50000000, 460000, 250000, 990000, 18000000],
+    [20000, 20000, 10000, 20000, 20000],
+    [0, 0, 10000, 0, 0]]);
+  const [afterValue2, setAfterValue2] = useState([[320000, 15400000, 40000, 8430000, 42080000],
+    [0, 5000, 0, 5000, 10000],
+    [100000000, 790000, 350000000, 2750000, 990000],
+    [20000, 10000, 20000, 10000, 10000],
     [0, 0, 0, 0, 0]]);
+  const [beforeSetupResult, setBeforeSetupResult] = useState();
+  const [afterSetupResult, setAfterSetupResult] = useState();
   // React.useEffect(() => {
   //   Slider.create(slider1.current, {
   //     start: [40],
@@ -125,6 +131,73 @@ export default function Basics() {
     const result = await SimpleContract.methods.get().call();
     setGetNumber(result);
     console.log(result);
+  }
+
+  const check = async (e) => {
+    e.preventDefault();
+    const result = await BetContract.methods.check().call();
+    if (JSON.stringify(result) === JSON.stringify('0x0000000000000000000000000000000000000000')) {
+      setValid(' This is a valid address');
+    }
+    console.log(result);
+  }
+
+  const beforeSetup = async (e) => {
+    e.preventDefault();    
+    const accounts = await window.ethereum.enable();
+    const account = accounts[0];
+    console.log(addr1);
+    console.log(addr2);
+    console.log(usr1);
+    console.log(usr2);
+    console.log(beforeValue1);
+    console.log(beforeValue2);
+    const gas = await BetContract.methods.setup(addr1, addr2, usr1, usr2, beforeValue1, beforeValue2).estimateGas();
+    const result = await BetContract.methods.setup(addr1, addr2, usr1, usr2, beforeValue1, beforeValue2).send({
+      from: account,
+      gas 
+    })
+    // await setBeforeSetupResult(result);
+    console.log(result);
+  }
+
+  const initialUpdate = async (e) => {
+    e.preventDefault();
+    const result = await BetContract.methods.initialUpdate().call();
+    console.log(result);
+  }
+
+  const afterSetup = async (e) => {
+    e.preventDefault();    
+    const accounts = await window.ethereum.enable();
+    const account = accounts[0];
+    console.log(addr1);
+    console.log(addr2);
+    console.log(usr1);
+    console.log(usr2);
+    console.log(afterValue1);
+    console.log(afterValue2);
+    const gas = await BetContract.methods.setup(addr1, addr2, usr1, usr2, afterValue1, afterValue2)
+                        .estimateGas();
+    const result = await BetContract.methods.set(addr1, addr2, usr1, usr2, afterValue1, afterValue2).send({
+      from: account,
+      gas 
+    })
+    // await setAfterSetupResult(result);
+    console.log(result);
+  }
+
+  const getWinner = async (e) => {
+    e.preventDefault();    
+    // const accounts = await window.ethereum.enable();
+    // const account = accounts[0];
+    // const gas = await BetContract.methods.setup(addr1, addr2, usr1, usr2, beforeValue1, beforeValue2)
+    //                     .estimateGas();
+    // const result = await BetContract.methods.set(addr1, addr2, usr1, usr2, beforeValue1, beforeValue2).send({
+    //   from: account,
+    //   gas 
+    // })
+    console.log('winner chicken dinner');
   }
   
   return (
@@ -172,7 +245,7 @@ export default function Basics() {
                       className="img-center img-fluid rounded-circle"
                       src={require("assets/img/lora.jpg").default}
                     />
-                    <h3 className="title text-center">Name</h3>
+                    <h3 className="title text-center">John</h3>
                     <h4 className="title text-center">Point Guard</h4>
                   </CardHeader>
                   <CardBody>
@@ -240,27 +313,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>48,870.75 </td>
+                              <td>43375 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>64,53.30 </td>
+                              <td>6432430 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18,354.96 </td>
+                              <td>1846 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>18,354.96 </td>
+                              <td>635496 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18,354.96 </td>
+                              <td>243496 </td>
                             </tr>
                             
                           </tbody>
@@ -332,7 +405,7 @@ export default function Basics() {
                       className="img-center img-fluid rounded-circle"
                       src={require("assets/img/james.jpg").default}
                     />
-                    <h3 className="title text-center">Name</h3>
+                    <h3 className="title text-center">Johnny</h3>
                     <h4 className="title text-center">Center</h4>
                   </CardHeader>
                   <CardBody>
@@ -492,7 +565,7 @@ export default function Basics() {
                       className="img-center img-fluid rounded-circle"
                       src={require("assets/img/mike.jpg").default}
                     />
-                    <h3 className="title text-center">Name</h3>
+                    <h3 className="title text-center">Jonathan</h3>
                     <h4 className="title text-center">Shooting Guard</h4>
                   </CardHeader>
                   <CardBody>
@@ -560,27 +633,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>48,870.75 </td>
+                              <td>483215 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>64,53.30 </td>
+                              <td>63320 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18,354.96 </td>
+                              <td>183326 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>18,354.96 </td>
+                              <td>1396 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18,354.96 </td>
+                              <td>93326 </td>
                             </tr>
                             
                           </tbody>
@@ -659,7 +732,7 @@ export default function Basics() {
                       className="img-center img-fluid rounded-circle"
                       src={require("assets/img/ryan.jpg").default}
                     />
-                    <h3 className="title text-center">Name</h3>
+                    <h3 className="title text-center">Joe</h3>
                     <h4 className="title text-center">Small Forward</h4>
                   </CardHeader>
                   <CardBody>
@@ -727,27 +800,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>48,870.75 </td>
+                              <td>483335 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>64,53.30 </td>
+                              <td>643330 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18,354.96 </td>
+                              <td>5496 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>18,354.96 </td>
+                              <td>15516 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18,354.96 </td>
+                              <td>18634 </td>
                             </tr>
                             
                           </tbody>
@@ -819,7 +892,7 @@ export default function Basics() {
                       className="img-center img-fluid rounded-circle"
                       src={require("assets/img/julie.jpeg").default}
                     />
-                    <h3 className="title text-center">Name</h3>
+                    <h3 className="title text-center">Rick</h3>
                     <h4 className="title text-center">Power Forward</h4>
                   </CardHeader>
                   <CardBody>
@@ -887,27 +960,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>48,870.75 </td>
+                              <td>129084 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>64,53.30 </td>
+                              <td>90232 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18,354.96 </td>
+                              <td>12 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>18,354.96 </td>
+                              <td>123 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18,354.96 </td>
+                              <td>1451125 </td>
                             </tr>
                             
                           </tbody>
@@ -1001,7 +1074,7 @@ export default function Basics() {
                       className="img-center img-fluid rounded-circle"
                       src={require("assets/img/lora.jpg").default}
                     />
-                    <h3 className="title text-center">Name</h3>
+                    <h3 className="title text-center">Jessi</h3>
                     <h4 className="title text-center">Point Guard</h4>
                   </CardHeader>
                   <CardBody>
@@ -1069,27 +1142,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>48,870.75 </td>
+                              <td>48265 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>64,53.30 </td>
+                              <td>630 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18,354.96 </td>
+                              <td>26 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>18,354.96 </td>
+                              <td>1834396 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18,354.96 </td>
+                              <td>18496 </td>
                             </tr>
                             
                           </tbody>
@@ -1161,7 +1234,7 @@ export default function Basics() {
                       className="img-center img-fluid rounded-circle"
                       src={require("assets/img/james.jpg").default}
                     />
-                    <h3 className="title text-center">Name</h3>
+                    <h3 className="title text-center">Jesse</h3>
                     <h4 className="title text-center">Center</h4>
                   </CardHeader>
                   <CardBody>
@@ -1229,27 +1302,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>48,870.75 </td>
+                              <td>488775 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>64,53.30 </td>
+                              <td>644843 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18,354.96 </td>
+                              <td>18334 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>18,354.96 </td>
+                              <td>1849382 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18,354.96 </td>
+                              <td>134322 </td>
                             </tr>
                             
                           </tbody>
@@ -1321,7 +1394,7 @@ export default function Basics() {
                       className="img-center img-fluid rounded-circle"
                       src={require("assets/img/mike.jpg").default}
                     />
-                    <h3 className="title text-center">Name</h3>
+                    <h3 className="title text-center">Jess</h3>
                     <h4 className="title text-center">Shooting Guard</h4>
                   </CardHeader>
                   <CardBody>
@@ -1389,27 +1462,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>48,870.75 </td>
+                              <td>43232 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>64,53.30 </td>
+                              <td>495 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18,354.96 </td>
+                              <td>385521 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>18,354.96 </td>
+                              <td>9532 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18,354.96 </td>
+                              <td>238475 </td>
                             </tr>
                             
                           </tbody>
@@ -1488,7 +1561,7 @@ export default function Basics() {
                       className="img-center img-fluid rounded-circle"
                       src={require("assets/img/ryan.jpg").default}
                     />
-                    <h3 className="title text-center">Name</h3>
+                    <h3 className="title text-center">Jester</h3>
                     <h4 className="title text-center">Small Forward</h4>
                   </CardHeader>
                   <CardBody>
@@ -1556,27 +1629,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>48,870.75 </td>
+                              <td>23383 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>64,53.30 </td>
+                              <td>32 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18,354.96 </td>
+                              <td>39323 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>18,354.96 </td>
+                              <td>34 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18,354.96 </td>
+                              <td>32928 </td>
                             </tr>
                             
                           </tbody>
@@ -1648,7 +1721,7 @@ export default function Basics() {
                       className="img-center img-fluid rounded-circle"
                       src={require("assets/img/julie.jpeg").default}
                     />
-                    <h3 className="title text-center">Name</h3>
+                    <h3 className="title text-center">Jessica</h3>
                     <h4 className="title text-center">Power Forward</h4>
                   </CardHeader>
                   <CardBody>
@@ -1716,27 +1789,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>48,870.75 </td>
+                              <td>482275 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>64,53.30 </td>
+                              <td>64330 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18,354.96 </td>
+                              <td>18003 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>18,354.96 </td>
+                              <td>1234 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18,354.96 </td>
+                              <td>1494949 </td>
                             </tr>
                             
                           </tbody>
@@ -1810,9 +1883,17 @@ export default function Basics() {
             </h1>
           </Col>
         </Row>
+        <button
+           className="btn-round" 
+           color="primary"
+           onClick={check}
+           type="button"> 
+           Check 
+        </button>
+        { valid }
         <h3>Before</h3>
         <header className="App-header">
-         <form onSubmit={handleSet}>
+         <form onSubmit={beforeSetup}>
           <label>
             Set addr1:
             <Input 
@@ -1830,7 +1911,7 @@ export default function Basics() {
               onChange={ e => setaddr2(e.target.value) } />
           </label>
           <label>
-            Set usr1:
+            Set serialnum1:
             <Input 
               type="text"
               name="name"
@@ -1838,7 +1919,7 @@ export default function Basics() {
               onChange={ e => setusr1(e.target.value) } />
           </label>
           <label>
-            Set usr2:
+            Set serialnum2:
             <Input 
               type="text"
               name="name"
@@ -1862,22 +1943,31 @@ export default function Basics() {
               onChange={ e => setBeforeValue2(e.target.value) } />
           </label>
           
-          <Input type="submit" value="Setup" />
+          <Input className="success" type="submit" value="Setup" />
+          {/* Setup result: { beforeSetupResult } */}
         </form>
         <br/>
-        <button
+        <br></br>
+        {/* <button
+              className="btn-round" 
+              color="primary"
+              onClick={initialUpdate}
+              type="button"> 
+              Initial Update
+            </button> */}
+        {/* <button
            className="btn-round" 
            color="primary"
-           onClick={handleGet}
+           onClick={getWinner}
            type="button"> 
            Get Results 
         </button>
-        { getNumber }
+        { getNumber } */}
       </header>
       <br></br>
       <h3>After</h3>
         <header className="App-header">
-         <form onSubmit={handleSet}>
+         <form onSubmit={afterSetup}>
           <label>
             Set addr1:
             <Input 
@@ -1895,7 +1985,7 @@ export default function Basics() {
               onChange={ e => setaddr2(e.target.value) } />
           </label>
           <label>
-            Set usr1:
+            Set serialnum1:
             <Input 
               type="text"
               name="name"
@@ -1903,7 +1993,7 @@ export default function Basics() {
               onChange={ e => setusr1(e.target.value) } />
           </label>
           <label>
-            Set usr2:
+            Set serialnum2:
             <Input 
               type="text"
               name="name"
@@ -1927,17 +2017,18 @@ export default function Basics() {
               onChange={ e => setAfterValue2(e.target.value) } />
           </label>
           
-          <Input type="submit" value="Setup" />
+          <Input className="className" type="submit" value="Setup" />
+          {/* Setup result: { afterSetupResult } */}
         </form>
         <br/>
-        <button
+        {/* <button
            className="btn-round" 
            color="primary"
            onClick={handleGet}
            type="button"> 
            Get Results 
         </button>
-        { getNumber }
+        { getNumber } */}
       </header>
       <br></br>
       <br></br>

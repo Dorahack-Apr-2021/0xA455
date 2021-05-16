@@ -1,7 +1,9 @@
 pragma solidity ^0.5.0;
 
 contract Bet {
-    uint constant betAmount = 2700000000000000 wei; // The bet that each person will make. This is $10 in Gwei
+    mapping (address => uint) public balanceOf;
+    
+    uint constant betAmount = 5 ether; // The bet that each person will make. This is $10 in wei
     
     
     address contractAddress; // The address of the user that stores the gwei between the transaction
@@ -52,7 +54,7 @@ contract Bet {
     
     
     // Set the addresses and player values for each user and create the contract
-    function setup(address usr1, address usr2, int[] memory newSerialNums1, int[] memory newSerialNums2, int[5][] memory metrics1, int[5][] memory metrics2) public {
+    function setup(address usr1, address usr2, int[] memory newSerialNums1, int[] memory newSerialNums2, int[5][] memory metrics1, int[5][] memory metrics2) public returns(bool) {
         // Store the variables
         contractAddress = address(this);
         user1 = usr1;
@@ -75,6 +77,8 @@ contract Bet {
         circulationCts2 = metrics2[2];
         sets2 = metrics2[3];
         CBSs2 = metrics2[4];
+        
+        return true;
     }
     
     
@@ -99,6 +103,9 @@ contract Bet {
         contractBalance += betAmount*2;
         user1Balance -= betAmount;
         user2Balance -= betAmount;
+        balanceOf[contractAddress] += contractBalance;
+        balanceOf[user1] -= betAmount;
+        balanceOf[user2] -= betAmount;
     }
     
     
@@ -151,7 +158,7 @@ contract Bet {
     
     
     // Transfers the money to a sinlge address
-    function transfer(address winner) private returns(bool) {
+    function transfer(address winner) private returns(address) {
         // If the winner is user1, add the balance to player1
         if (winner == user1) {
             user1Balance += contractBalance;
@@ -164,10 +171,10 @@ contract Bet {
         }
         // If the winner is not player1 or player2, return false
         else {
-            return false;
+            return 0x0000000000000000000000000000000000000000;
         }
         
-        return true;
+        return winner;
     }
     
     
@@ -270,7 +277,7 @@ contract Bet {
     int public sum1;
     int public sum2;
     // Get the new values of each card and return the winner
-    function calculateBestPlayer(int[5][] memory newValues1, int[5][] memory newValues2) public returns(bool) {
+    function calculateBestPlayer(int[5][] memory newValues1, int[5][] memory newValues2) public returns(address) {
         // Get the difference of each players' card value sum
         
         // Difference of all data points in values array
@@ -313,6 +320,6 @@ contract Bet {
         // If sum2 is greater than sum1, player 2 gets the balance
         else if (sum1 <= sum2) return transfer(user2);
         // If the sums are equal, both players split the pot
-        else return false;
+        else return 0x0000000000000000000000000000000000000000;
     }
 }

@@ -169,14 +169,6 @@ contract Bet {
         
         return true;
     }
-
-
-    // Transfers the money to both addresses
-    function tie() private returns(bool) {
-        user1Balance += contractBalance/2;
-        user2Balance += contractBalance/2;
-        contractBalance = 0;
-        return true;
     
     
     /*

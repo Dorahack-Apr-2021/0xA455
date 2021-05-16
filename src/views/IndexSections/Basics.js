@@ -227,7 +227,7 @@ export default function Basics() {
               </Col>
               <Col>
                 <h3>
-                  My Current Score: <strong>12345</strong>
+                  My Current Score: <strong>239043</strong>
                 </h3>
               </Col>
             </Row>
@@ -313,27 +313,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>43375 </td>
+                              <td>501 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>6432430 </td>
+                              <td>0.5 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>1846 </td>
+                              <td>1800 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>635496 </td>
+                              <td>2 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>243496 </td>
+                              <td>0 </td>
                             </tr>
                             
                           </tbody>
@@ -473,27 +473,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>48,870.75 </td>
+                              <td>644 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>64,53.30 </td>
+                              <td>0 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18,354.96 </td>
+                              <td>5000 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>18,354.96 </td>
+                              <td>2 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18,354.96 </td>
+                              <td>0 </td>
                             </tr>
                             
                           </tbody>
@@ -633,27 +633,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>483215 </td>
+                              <td>48 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>63320 </td>
+                              <td>1 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>183326 </td>
+                              <td>99 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>1396 </td>
+                              <td>2 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>93326 </td>
+                              <td>0 </td>
                             </tr>
                             
                           </tbody>
@@ -800,27 +800,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>483335 </td>
+                              <td>644 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>643330 </td>
+                              <td>1 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>5496 </td>
+                              <td>46 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>15516 </td>
+                              <td>2 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18634 </td>
+                              <td>0 </td>
                             </tr>
                             
                           </tbody>
@@ -960,27 +960,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>129084 </td>
+                              <td>19 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>90232 </td>
+                              <td>1 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>12 </td>
+                              <td>1 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>123 </td>
+                              <td>25 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>1451125 </td>
+                              <td>1 </td>
                             </tr>
                             
                           </tbody>
@@ -1142,27 +1142,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>48265 </td>
+                              <td>7564 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>630 </td>
+                              <td>0 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>26 </td>
+                              <td>6000 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>1834396 </td>
+                              <td>2 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>18496 </td>
+                              <td>0 </td>
                             </tr>
                             
                           </tbody>
@@ -1302,27 +1302,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>488775 </td>
+                              <td>76 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>644843 </td>
+                              <td>0.5 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18334 </td>
+                              <td>79 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>1849382 </td>
+                              <td>1 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>134322 </td>
+                              <td>0 </td>
                             </tr>
                             
                           </tbody>
@@ -1462,27 +1462,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>43232 </td>
+                              <td>3035 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>495 </td>
+                              <td>0 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>385521 </td>
+                              <td>35000 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>9532 </td>
+                              <td>275 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>238475 </td>
+                              <td>0 </td>
                             </tr>
                             
                           </tbody>
@@ -1629,27 +1629,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>23383 </td>
+                              <td>236 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>32 </td>
+                              <td>0.5 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>39323 </td>
+                              <td>275 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>34 </td>
+                              <td>1 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>32928 </td>
+                              <td>0 </td>
                             </tr>
                             
                           </tbody>
@@ -1789,27 +1789,27 @@ export default function Basics() {
                             <tr>
                               <td>Serial Num</td>
                               <td>2</td>
-                              <td>482275 </td>
+                              <td>78 </td>
                             </tr>
                             <tr>
                               <td>Rarity</td>
                               <td>3</td>
-                              <td>64330 </td>
+                              <td>1 </td>
                             </tr>
                             <tr>
                               <td>Circulation Count</td>
                               <td>4</td>
-                              <td>18003 </td>
+                              <td>99 </td>
                             </tr>
                             <tr>
                               <td>Set</td>
                               <td>3</td>
-                              <td>1234 </td>
+                              <td>1 </td>
                             </tr>
                             <tr>
                               <td>Certified Baller Shot</td>
                               <td>1</td>
-                              <td>1494949 </td>
+                              <td>0 </td>
                             </tr>
                             
                           </tbody>

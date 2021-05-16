@@ -34,7 +34,7 @@ export default function PageHeader() {
         <div className="content-center brand">
           <h1 className="h1-seo">0xA455</h1>
           <h3 className="d-none d-sm-block">
-            Compete in NBA Fantasy using your NFT Collection
+            Compete in NBA Fantasy League using your NFT Collection
           </h3>
         </div>
       </Container>

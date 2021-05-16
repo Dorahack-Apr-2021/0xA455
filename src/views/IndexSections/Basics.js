@@ -57,7 +57,7 @@ import simpleStorage from '../../abis/SimpleStorage.json';
 const web3 = new Web3(Web3.givenProvider);
 
 // contract address is provided by Truffle migration
-const contractAddr = '0x8Bb231a2Ebce40Ae9137862E69401B2b389AdaB1';
+const contractAddr = '0x4A39f679E3aEeC9d1801d0b57E954cd21Cf8D4C2';
 
 const SimpleContract = new web3.eth.Contract(simpleStorage.abi, contractAddr);
 
@@ -70,8 +70,28 @@ export default function Basics() {
   const [getNumber, setGetNumber] = useState('0x00');
   const [addr1, setaddr1] = useState(0x00);
   const [addr2, setaddr2] = useState(0x00);
-  const [value1, setvalue1] = useState(null);
-  const [value2, setvalue2] = useState(null);
+  const [usr1, setusr1] = useState([644, 46, 19, 48, 501]);
+  const [usr2, setusr2] = useState([7564, 76, 3035, 236, 78]);
+  const [beforeValue1, setBeforeValue1] = useState([[165, 11999, 80000, 2299, 260],
+    [0, 1, 1, 1, 0.5],
+    [5000, 46, 25, 99, 1800],
+    [2, 2, 1, 2, 2],
+    [0, 0, 1, 0, 0]]);
+  const [beforeValue2, setBeforeValue2] = useState([[44, 12000, 4, 628, 2799],
+    [0, 0.5, 0, 0.5, 1],
+    [10000, 79, 35000, 275, 99],
+    [2, 1, 2, 1, 1],
+    [0, 0, 0, 0, 0]]);
+  const [afterValue1, setAfterValue1] = useState([[142, 13258, 81000, 3500, 337],
+    [0, 1, 1, 1, 0.5],
+    [5000, 46, 25, 99, 1800],
+    [2, 2, 1, 2, 2],
+    [0, 0, 1, 0, 0]]);
+  const [afterValue2, setAfterValue2] = useState([[32, 1540, 4, 843, 4208],
+    [0, 0.5, 0, 0.5, 1],
+    [10000, 79, 35000, 275, 99],
+    [2, 1, 2, 1, 1],
+    [0, 0, 0, 0, 0]]);
   // React.useEffect(() => {
   //   Slider.create(slider1.current, {
   //     start: [40],
@@ -131,6 +151,11 @@ export default function Basics() {
               >
                 Change Roster
             </Button>
+              </Col>
+              <Col>
+                <h3>
+                  My Current Score: <strong>12345</strong>
+                </h3>
               </Col>
             </Row>
             <br></br>
@@ -949,12 +974,17 @@ export default function Basics() {
             </Row>
             <h1 className="text-center"><strong>VS</strong></h1>
             <Row>
-              <Col md="10">
+              <Col md="12">
                 <hr className="line-danger" />
                 <h1>
                   Their{" "}
                   <span className="text-danger">Roster</span>
                 </h1>
+              </Col>
+              <Col>
+                <h3>
+                  Their Current Score: <strong>92184</strong>
+                </h3>
               </Col>
             </Row>
             <br></br>
@@ -1779,17 +1809,13 @@ export default function Basics() {
               <span className="text-success">Demo</span>
             </h1>
           </Col>
-          <Col lg="3" sm="6">
-              <FormGroup>
-                <Input defaultValue="" placeholder="Regular" type="text" />
-              </FormGroup>
-            </Col>
         </Row>
+        <h3>Before</h3>
         <header className="App-header">
-        <form onSubmit={handleSet}>
+         <form onSubmit={handleSet}>
           <label>
             Set addr1:
-            <input 
+            <Input 
               type="text"
               name="name"
               value={addr1}
@@ -1797,36 +1823,119 @@ export default function Basics() {
           </label>
           <label>
             Set addr2:
-            <input 
+            <Input 
               type="text"
               name="name"
               value={addr2}
               onChange={ e => setaddr2(e.target.value) } />
           </label>
           <label>
-            Set values1:
-            <input 
+            Set usr1:
+            <Input 
               type="text"
               name="name"
-              value={value1}
-              onChange={ e => setvalue1(e.target.value) } />
+              value={usr1}
+              onChange={ e => setusr1(e.target.value) } />
+          </label>
+          <label>
+            Set usr2:
+            <Input 
+              type="text"
+              name="name"
+              value={usr2}
+              onChange={ e => setusr2(e.target.value) } />
+          </label>
+          <label>
+            Set values1:
+            <Input 
+              type="text"
+              name="name"
+              value={beforeValue1}
+              onChange={ e => setBeforeValue1(e.target.value) } />
           </label>
           <label>
             Set values2:
-            <input 
+            <Input 
               type="text"
               name="name"
-              value={value2}
-              onChange={ e => setvalue2(e.target.value) } />
+              value={beforeValue2}
+              onChange={ e => setBeforeValue2(e.target.value) } />
           </label>
           
-          <input type="submit" value="Set Setup" />
+          <Input type="submit" value="Setup" />
         </form>
         <br/>
         <button
-          onClick={handleGet}
-          type="button" > 
-          Get Number 
+           className="btn-round" 
+           color="primary"
+           onClick={handleGet}
+           type="button"> 
+           Get Results 
+        </button>
+        { getNumber }
+      </header>
+      <br></br>
+      <h3>After</h3>
+        <header className="App-header">
+         <form onSubmit={handleSet}>
+          <label>
+            Set addr1:
+            <Input 
+              type="text"
+              name="name"
+              value={addr1}
+              onChange={ e => setaddr1(e.target.value) } />
+          </label>
+          <label>
+            Set addr2:
+            <Input 
+              type="text"
+              name="name"
+              value={addr2}
+              onChange={ e => setaddr2(e.target.value) } />
+          </label>
+          <label>
+            Set usr1:
+            <Input 
+              type="text"
+              name="name"
+              value={usr1}
+              onChange={ e => setusr1(e.target.value) } />
+          </label>
+          <label>
+            Set usr2:
+            <Input 
+              type="text"
+              name="name"
+              value={usr2}
+              onChange={ e => setusr2(e.target.value) } />
+          </label>
+          <label>
+            Set values1:
+            <Input 
+              type="text"
+              name="name"
+              value={afterValue1}
+              onChange={ e => setAfterValue1(e.target.value) } />
+          </label>
+          <label>
+            Set values2:
+            <Input 
+              type="text"
+              name="name"
+              value={afterValue2}
+              onChange={ e => setAfterValue2(e.target.value) } />
+          </label>
+          
+          <Input type="submit" value="Setup" />
+        </form>
+        <br/>
+        <button
+           className="btn-round" 
+           color="primary"
+           onClick={handleGet}
+           type="button"> 
+           Get Results 
         </button>
         { getNumber }
       </header>
@@ -1834,24 +1943,35 @@ export default function Basics() {
       <br></br>
       <br></br>
       <header className="App-header">
+        
         <form onSubmit={handleSet}>
-          <label>
-            Set Number:
-            <input 
-              type="text"
-              name="name"
-              value={number}
-              onChange={ e => setNumber(e.target.value) } />
-          </label>
-          <input type="submit" value="Set Number" />
+          <Row>
+            <Col md="3">
+              <label>
+                Set Number:
+                <Input
+                  defaultValue=""
+                  type="text"
+                  name="name"
+                  value={number}
+                  onChange={ e => setNumber(e.target.value) } />
+              </label>
+              <Input className="btn-success" type="submit" value="Set Number" />
+            </Col>
+          </Row>
+          <button
+              className="btn-round" 
+              color="primary"
+              onClick={handleGet}
+              type="button"> 
+              Get Number 
+            </button>
+            { getNumber }
+          
         </form>
         <br/>
-        <button
-          onClick={handleGet}
-          type="button" > 
-          Get Number 
-        </button>
-        { getNumber }
+        
+          
       </header>
         {/* <h3>Buttons</h3>
         <p className="category">Pick your style</p>
